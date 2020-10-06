@@ -12,7 +12,7 @@ cur = conn.cursor()
 cur.execute('create table if not exists tasks (title text)')
 task = []
 state = []
-taskPlace = 175
+taskPlace = 220
 # -------------------------------To do List Functions--------------------------------
 def addTask():
     global taskPlace
@@ -26,14 +26,12 @@ def addTask():
         state.append(tk.IntVar())
         cur.execute('insert into tasks values (?)', (word,))
         cb = tk.Checkbutton(root, text=word, variable=state[task.index(word)],font = ('Sans','10','bold'))
-        cb.place(x=320, y=taskPlace)
+        cb.place(x=900, y=taskPlace)
         taskPlace=taskPlace+30
         e1.delete(0, 'end')
 
 def updateList():
     global state
-    print(state)
-    print(task)
 
     for i in state:
         if i.get():
@@ -63,11 +61,11 @@ def update_checkbox():
     for widget in root.winfo_children():
         if type(widget) == tk.Checkbutton:
            widget.destroy()
-    taskPlace = 175
+    taskPlace = 220
 
     for i in task:
         cb=tk.Checkbutton(root, text=i, variable=state[task.index(i)],font = ('Sans','10','bold'))
-        cb.place(x=320, y=taskPlace)
+        cb.place(x=900, y=taskPlace)
         taskPlace = taskPlace + 30
 
 # -------------------------------App runner Functions--------------------------------
@@ -115,71 +113,71 @@ def bye():
 
 
 ############################## main program ################################
-# add canvas and task_frames
-canvas = tk.Canvas(root, height=480, width=1050)
+# add canvas and roots
+canvas = tk.Canvas(root, height=500, width=1050)
 canvas.pack()
 
 background_image = tk.PhotoImage(file='landscape.png')
 background_label = tk.Label(root, image=background_image)
 background_label.place(relwidth=1, relheight=1)
 
-task_frame =tk.Canvas(root, height=350, width=470, bg='#80c1ff')
-task_frame.place(x=50 ,y=90)
+#root =tk.Canvas(root, height=350, width=470, bg='#80c1ff')
+#root.place(x=50 ,y=90)
 
-app_frame =tk.Canvas(root, height=350, width=400, bg='#80c1ff')
-app_frame.place(x=620 ,y=90)
+#root =tk.Canvas(root, height=350, width=400, bg='#80c1ff')
+#root.place(x=620 ,y=90)
 
 l0=ttk.Label(root, text='good morning world',font = ('Sans','20','bold'),foreground ="green")
 
 ####################### to do list object #######################
 
 
-l1 = ttk.Label(task_frame, text='My smart To-Do List',font = ('Sans','17','bold'),foreground ="green")
-l2 = ttk.Label(task_frame, text='Enter task title: ',foreground ="blue")
-l3= ttk.Label(task_frame, text='Tasks: ',foreground ="blue")
-e1 = ttk.Entry(task_frame, width=21)
-b1 = tk.Button(task_frame, text='Add task', width=17, command=addTask, font = ('Sans','15','bold') ,foreground ="blue")
-b3 = tk.Button(task_frame, text='update list', width=17, command=updateList,font = ('Sans','15','bold'),foreground ="blue")
-b4 = tk.Button(task_frame, text='Exit', width=17, command=bye,font = ('Sans','15','bold'),foreground ="blue")
-b5= tk.Button(task_frame, text='Delete All', width=17, command=deleteAll,font = ('Sans','15','bold'),foreground ="blue")
+l1 = ttk.Label(root, text='My smart To-Do List:',font = ('Sans','17','bold'),foreground ="green")
+l2 = ttk.Label(root, text='Enter task title: ',foreground ="blue")
+l3= ttk.Label(root, text='Tasks: ',foreground ="blue")
+e1 = ttk.Entry(root, width=21)
+b1 = tk.Button(root, text='Add task', width=17, command=addTask, font = ('Sans','15','bold') ,foreground ="blue")
+b3 = tk.Button(root, text='update list', width=17, command=updateList,font = ('Sans','15','bold'),foreground ="blue")
+b4 = tk.Button(root, text='Exit', width=17, command=bye,font = ('Sans','15','bold'))
+b5= tk.Button(root, text='Delete All', width=17, command=deleteAll,font = ('Sans','15','bold'),foreground ="blue")
 
 retrieveDB()
 update_checkbox()
 
 # Place geometry
-l0.place(x=340,y=30)
-l1.place(x=100, y=10)
-l2.place(x=40, y=55)
-l3.place(x=300, y=55)
-e1.place(x=40, y=90)
-b1.place(x=30, y=140)
-b3.place(x=30, y=190)
-b5.place(x=30, y=240)
-b4.place(x=30, y=290)
+l0.place(x=360,y=30)
+l1.place(x=700, y=110)
+l2.place(x=640, y=155)
+l3.place(x=900, y=155)
+e1.place(x=640, y=190)
+b1.place(x=630, y=240)
+b3.place(x=630, y=290)
+b5.place(x=630, y=340)
+b4.place(x=400, y=430)
 
 
 
 ####################### Apps runner object #######################
 
 #add labels and list box
-l4 = tk.Label(app_frame, text="Apps to run:",font = ('Sans','10','bold') ,foreground="blue")
-l4.place(x=260,y=60)
+l4 = tk.Label(root, text="Apps to run:",font = ('Sans','10','bold') ,foreground="blue")
+l4.place(x=300,y=160)
 
-l5 = tk.Label(app_frame, text="Apps runner:",font = ('Sans','17','bold') ,foreground="green")
-l5.place(x=130,y=10)
+l5 = tk.Label(root, text="Apps runner:",font = ('Sans','17','bold') ,foreground="green")
+l5.place(x=170,y=110)
 # transperaty
-lb = tk.Listbox(app_frame, height=11, selectmode='SINGLE',font = ('Sans','10','bold'))
-lb.place(x=260,y=90)
+lb = tk.Listbox(root, height=11, selectmode='SINGLE',font = ('Sans','10','bold'),bg='#80c1ff')
+lb.place(x=270,y=190)
 
 # crate and place the buttons
-addApp = tk.Button(app_frame, text="Add app", font = ('Sans','15','bold'), padx=14, pady=4, command=addApp,foreground="blue")
-addApp.place(x=20,y=60)
+addApp = tk.Button(root, text="Add app", font = ('Sans','15','bold'), padx=14, pady=4, command=addApp,foreground="blue")
+addApp.place(x=60,y=200)
 
-runApps= tk.Button(app_frame,text="Run all apps",font = ('Sans','15','bold'),padx=10,pady=4,command =runApps,foreground="blue")
-runApps.place(x=20,y=110)
+runApps= tk.Button(root,text="Run all apps",font = ('Sans','15','bold'),padx=10,pady=4,command =runApps,foreground="blue")
+runApps.place(x=60,y=260)
 
-deleteApp= tk.Button(app_frame,text="Delet App",font = ('Sans','15','bold'),padx=10, pady=4,command=lambda: RemoveApp(),foreground="blue")
-deleteApp.place(x=20,y=160)
+deleteApp= tk.Button(root,text="Delet App",font = ('Sans','15','bold'),padx=10, pady=4,command=lambda: RemoveApp(),foreground="blue")
+deleteApp.place(x=60,y=320)
 
  # read apps from file to list
 if os.path.isfile('save.txt'):
